@@ -7,10 +7,10 @@
 </div>
 
 
-<div class="options-container">
+<div class="options-container mt-5">
 
     <ul>
-        <li *ngFor="let item of pokeOpt" (click)="checkAnswer(item)">{{item}}</li>
+        <li class="btn-primary" *ngFor="let item of pokeOpt" (click)="checkAnswer(item)">{{item | titlecase}}</li>
 
 
     </ul>
@@ -22,4 +22,5 @@
 
 <div *ngIf="showAnswer">
     <h2 class="fade-in">{{ message }}</h2>
+    <button (click)="newGame()" class="btn btn-warning">Volver a jugar</button>
 </div>

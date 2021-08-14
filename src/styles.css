@@ -1,6 +1,6 @@
 html,
 body {
-    background-color: #f1f1f1;
+    background-color: #2c2c2c;
     margin: 0px;
 }
 
@@ -61,11 +61,11 @@ body {
 /* Pokemon Picture */
 
 .pokemon-container {
-    height: 200px;
+    height: 250px;
 }
 
 img {
-    height: 200px;
+    height: 250px;
     position: absolute;
     right: 46%;
     user-select: none;
@@ -93,10 +93,13 @@ li {
     cursor: pointer;
     margin-bottom: 10px;
     width: 250px;
+    padding: 33px;
+    font-size: x-large;
 }
 
 li:hover {
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: rgb(78, 78, 255);
+    border: 3px solid rgba(0, 0, 0);
 }
 
 .options-container {

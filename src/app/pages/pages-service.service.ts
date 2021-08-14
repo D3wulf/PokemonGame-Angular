@@ -8,39 +8,23 @@ import { Pokemon } from '../interfaces/pokemon.interface';
 })
 export class PagesServiceService {
 
-  poke1!:Pokemon | undefined;
-  poke2!:Pokemon | undefined;
-  poke3!:Pokemon | undefined;
-  poke4!:Pokemon | undefined;
-
   baseUrl:String=  'https://pokeapi.co/api/v2/pokemon'
 
   pokeOptions:Pokemon[]=[];
 
   constructor(private http:HttpClient) { }
 
+  // Pokemon Individual
   getPokemon(pokemon:any):Observable<Pokemon>{
 
-    return this.http.get<Pokemon>(`https://pokeapi.co/api/v2/pokemon/${pokemon}`);
-    
-
-    //return this.http.get(`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${pokemon}.svg`);
+    return this.http.get<Pokemon>(`${this.baseUrl}/${pokemon}`);
   }
 
+  // Pokemon Array
   getPokemons(){
 
-    return this.http.get<Pokemon>(`https://pokeapi.co/api/v2/pokemon`);
+    return this.http.get<Pokemon>(`${this.baseUrl}`).subscribe();
     
-
-    //return this.http.get(`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${pokemon}.svg`);
   }
-
-  
-   
-
-   
-    
-
-
 
 }
