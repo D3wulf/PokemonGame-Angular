@@ -1,3 +1,8 @@
+# Juego de Pokemon en Angular.
+
+Con las bases del juego en Vue hice el juego de Pokemon en Angular con Typescript y Rxjs. Falta depuración a 14/08 pero es funcional
+
+
 # Pokemon
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.8.
