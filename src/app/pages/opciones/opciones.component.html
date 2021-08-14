@@ -1,0 +1,25 @@
+<div class="pokemon-container">
+
+    <img *ngIf="!showPokemon" [src]="img" class="hidden-pokemon" alt="pokemon">
+
+    <img *ngIf="showPokemon" [src]="img" class="fade-in" alt="pokemon">
+
+</div>
+
+
+<div class="options-container">
+
+    <ul>
+        <li *ngFor="let item of pokeOpt" (click)="checkAnswer(item)">{{item}}</li>
+
+
+    </ul>
+
+
+
+
+</div>
+
+<div *ngIf="showAnswer">
+    <h2 class="fade-in">{{ message }}</h2>
+</div>
