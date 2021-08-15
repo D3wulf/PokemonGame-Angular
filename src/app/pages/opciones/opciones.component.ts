@@ -21,7 +21,7 @@ export class OpcionesComponent implements OnInit {
   options:number[]=[];
 
   showPokemon:Boolean= false;
-  showAnswer:boolean=false;
+  //showAnswer:boolean=false;
 
   message!:string;
   nombreFinal!:string;
@@ -76,11 +76,10 @@ getPokemonFinal = (pok1:number) => {
 checkAnswer(pokemonId:string){
 
   this.showPokemon = true
-  this.showAnswer  = true
+  //this.showAnswer  = true
 
   this.pagesService.getPokemon(this.respuesta).subscribe(resp=>{
 
-    
     
     if (pokemonId === resp.name){
       
@@ -102,21 +101,10 @@ checkAnswer(pokemonId:string){
 
       this.aciertos++;
 
-
-      //console.log('correcto? ', pokemonId, resp.name);
-      //this.continuar()
     }else{
       
       this.message = `Incorrecto! Era ${resp.name}!`
       this.vidas--;;
-      
-      // Swal.fire({
-      //   icon: 'error',
-      //   title: 'Incorrecto!',
-      //   text: `¡Es ${resp.name}! , te queda/n ${this.vidas} vidas!`,
-      //   confirmButtonText:'<button class="btn">Continuar el juego</button>',
-      //   confirmButtonAriaLabel: 'Thumbs up, great!',
-      // })
 
       Swal.fire({
         title: 'Incorrecto!',
@@ -132,12 +120,12 @@ checkAnswer(pokemonId:string){
         }
       })
 
-      
-      //console.log('incorrecto? ', pokemonId, resp.name);
+      // Nos quedamos sin vidas //
+
       if(this.vidas === 0){
         Swal.fire('No te quedan Vidas!', `Has acertado ${this.aciertos}!. Pulsa Ok para empezar`,'error' )
         Swal.fire({
-          title: 'No te quedan Vidas!',
+          title: `Oh, ese último era ${resp.name}. No te quedan Vidas!`,
           text: `Has acertado ${this.aciertos}!. Pulsa Ok para empezar`,
           icon: 'info',
           showCancelButton: false,
@@ -150,23 +138,14 @@ checkAnswer(pokemonId:string){
           }
         })
         
-        //this.newGame();
-      }else{
-        //this.continuar();
       }
-      
-      
     }
 
-    
-    
-    
    })
 }
 
 continuar(){
   this.showPokemon = false
-  this.showAnswer  = false
   this.pokeOpt  = []
   this.logicaPokemons()   
   this.pagesService.getPokemons()
@@ -176,13 +155,10 @@ continuar(){
 newGame() {
   
   this.showPokemon = false
-  this.showAnswer  = false
   this.pokeOpt  = []
   this.vidas= 3;
   this.aciertos=0;
-  //this.respuesta     = null
   this.pagesService.getPokemons()
-    
   this.logicaPokemons()         
 }
 
