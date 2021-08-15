@@ -1,26 +1,31 @@
-<div class="pokemon-container">
+<div class="container">
+    <div class="pokemon-container">
 
-    <img *ngIf="!showPokemon" [src]="img" class="hidden-pokemon" alt="pokemon">
+        <img *ngIf="!showPokemon" [src]="img" class="hidden-pokemon" alt="pokemon">
 
-    <img *ngIf="showPokemon" [src]="img" class="fade-in" alt="pokemon">
-
-</div>
-
-
-<div class="options-container mt-5">
-
-    <ul>
-        <li class="btn-primary" *ngFor="let item of pokeOpt" (click)="checkAnswer(item)">{{item | titlecase}}</li>
-
-
-    </ul>
+        <img *ngIf="showPokemon" [src]="img" class="fade-in" alt="pokemon">
 
 
 
+    </div>
 
-</div>
 
-<div *ngIf="showAnswer">
-    <h2 class="fade-in">{{ message }}</h2>
-    <button (click)="newGame()" class="btn btn-warning">Volver a jugar</button>
+    <div class="options-container mt-5">
+
+        <ul>
+            <li class="btn-primary" *ngFor="let item of pokeOpt" (click)="checkAnswer(item)">{{item | titlecase}}</li>
+
+
+        </ul>
+
+
+
+    </div>
+    <h3 class="text-end">Vidas:{{vidas}} Aciertos: {{aciertos}}</h3>
+
+    <div *ngIf="showAnswer">
+        <h2 class="fade-in">{{ message }}</h2>
+        <button (click)="continuar()" class="btn btn-warning">Sacar Pokemons</button>
+    </div>
+
 </div>

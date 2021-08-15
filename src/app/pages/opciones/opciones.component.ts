@@ -3,73 +3,59 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { Pokemon } from 'src/app/interfaces/pokemon.interface';
 import { PagesServiceService } from '../pages-service.service';
+import Swal from 'sweetalert2'
 
 
 
 @Component({
   selector: 'app-opciones',
   templateUrl: './opciones.component.html',
-  styles: [
-    
-  
-  ]
+  styles: [ ]
 })
 export class OpcionesComponent implements OnInit {
 
-  //@Input ('pokemon') pokemon:any;
-  
   pokemon!:number;
+  respuesta!:number;
 
-  pokeOpt:string[]=[]
+  pokeOpt:string[]=[];
+  options:number[]=[];
 
   showPokemon:Boolean= false;
-
-  respuesta!:number;
   showAnswer:boolean=false;
 
   message!:string;
-
-  nombreFinal!:string
-
+  nombreFinal!:string;
   img:string= '';
+
+  vidas:number = 3
+  aciertos:number=0;
+
+  
 
   constructor(private pagesService:PagesServiceService,
     private http:HttpClient) { }
 
   ngOnInit(): void {
-
-    this.pagesService.getPokemons()
-    
+    this.pagesService.getPokemons()   
     this.logicaPokemons()
 
   }
 
   logicaPokemons = async() => {
 
-    // nuevo del EcmaScript, crear un arreglo de otro arreglo
-    const pokemonsTotales = Array.from(Array(650))
-
-    // mapear el arreglo para darle un valor a cada posicion
-    const mixedPokemons= pokemonsTotales
-              .map((_, index) => index + 1)
-                  // para hacerlos aleatorios
-              .sort(() => Math.random() - 0.5)
-    
-      // dejamos 4 que serán las opciones
-    const options = mixedPokemons.splice(0,4)
-
-    //console.log('4 aleatorios de 650', options);
+    // esto devuelve un array de 4 numeros aleatorios
+    this.options= this.pagesService.logicaPokemon()
 
     // Aqui cogemos un aleatorio de los 4 que tenemos
     const randomInt = Math.floor(Math.random()*4)
     // El que será elegido como válido
-    this.respuesta= options[randomInt]
+    this.respuesta= this.options[randomInt]
 
     // Obtenemos el nombre de los 4 numeros
-    this.getPokemonFinal(options[0])
-    this.getPokemonFinal(options[1])
-    this.getPokemonFinal(options[2])
-    this.getPokemonFinal(options[3])
+    this.getPokemonFinal(this.options[0])
+    this.getPokemonFinal(this.options[1])
+    this.getPokemonFinal(this.options[2])
+    this.getPokemonFinal(this.options[3])
 
     //console.log(' aleatorio de los 4', this.respuesta);
 
@@ -95,15 +81,96 @@ checkAnswer(pokemonId:string){
   this.pagesService.getPokemon(this.respuesta).subscribe(resp=>{
 
     
+    
     if (pokemonId === resp.name){
-      this.message = `correcto! es ${resp.name}`
+      
+      this.message = `Correcto! Es ${resp.name}`
+
+      Swal.fire({
+        title: 'Correcto!',
+        text: `¡Es ${resp.name}!`,
+        icon: 'success',
+        showCancelButton: false,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Continuar!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.continuar()
+        }
+      })
+
+      this.aciertos++;
+
+
       //console.log('correcto? ', pokemonId, resp.name);
+      //this.continuar()
     }else{
-      this.message = `Incorrecto! El pokemon correcto es:  ${resp.name}`
+      
+      this.message = `Incorrecto! Era ${resp.name}!`
+      this.vidas--;;
+      
+      // Swal.fire({
+      //   icon: 'error',
+      //   title: 'Incorrecto!',
+      //   text: `¡Es ${resp.name}! , te queda/n ${this.vidas} vidas!`,
+      //   confirmButtonText:'<button class="btn">Continuar el juego</button>',
+      //   confirmButtonAriaLabel: 'Thumbs up, great!',
+      // })
+
+      Swal.fire({
+        title: 'Incorrecto!',
+        text: `¡Es ${resp.name}! , te queda/n ${this.vidas} vidas!`,
+        icon: 'warning',
+        showCancelButton: false,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Continuar!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.continuar()
+        }
+      })
+
+      
       //console.log('incorrecto? ', pokemonId, resp.name);
+      if(this.vidas === 0){
+        Swal.fire('No te quedan Vidas!', `Has acertado ${this.aciertos}!. Pulsa Ok para empezar`,'error' )
+        Swal.fire({
+          title: 'No te quedan Vidas!',
+          text: `Has acertado ${this.aciertos}!. Pulsa Ok para empezar`,
+          icon: 'info',
+          showCancelButton: false,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Empezar partida'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.newGame()
+          }
+        })
+        
+        //this.newGame();
+      }else{
+        //this.continuar();
+      }
+      
+      
     }
+
+    
+    
     
    })
+}
+
+continuar(){
+  this.showPokemon = false
+  this.showAnswer  = false
+  this.pokeOpt  = []
+  this.logicaPokemons()   
+  this.pagesService.getPokemons()
+  
 }
 
 newGame() {
@@ -111,6 +178,8 @@ newGame() {
   this.showPokemon = false
   this.showAnswer  = false
   this.pokeOpt  = []
+  this.vidas= 3;
+  this.aciertos=0;
   //this.respuesta     = null
   this.pagesService.getPokemons()
     
