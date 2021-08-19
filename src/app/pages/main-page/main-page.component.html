@@ -1,14 +1,23 @@
-<!-- <div class="row">
+<h4>Mostrando resultados... {{resultados}} de {{total}}</h4>
+<table class="table table-warning table-striped">
+    <thead>
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Url</th>
+            <th scope="col">Imagen</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of pokemons; let i= index; ">
+            <th scope="row">{{pokemonid +i}}</th>
+            <td>{{pokemons[i].name |titlecase}}</td>
+            <td>{{pokemons[i].url}}</td>
+            <td><img [src]="img[pokemonid +i]" [alt]="pokemons[i].name"></td>
 
-    <div class="col-12 text-center mt-3">
-        <h1>
-            ¿Quien es este Pokémon?</h1>
-    </div>
-</div>
+        </tr>
 
-<div class="row">
-    <div class="col text-center mt-5">
-        <app-opciones></app-opciones>
-
-    </div>
-</div> -->
+    </tbody>
+</table>
+<button (click)="cambioPag(-15)" class="btn btn-warning m-3">Anterior</button>
+<button (click)="cambioPag(+15)" class="btn btn-warning">Siguiente</button>

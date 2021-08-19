@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subscription } from 'rxjs';
 import { Pokemon } from '../interfaces/pokemon.interface';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -23,10 +24,15 @@ export class PagesServiceService {
   }
 
   // Pokemon Array
-  getPokemons(){
+  getPokemons(offset:number){
 
-    return this.http.get<Pokemon>(`${this.baseUrl}`).subscribe();
+    return this.http.get<any>(`${this.baseUrl}?offset=${offset}&limit=15`);
     
+  }
+
+  getAllPokemons(){
+
+    return this.http.get<any>(`${this.baseUrl}`);
   }
 
   logicaPokemon ():number[]{
@@ -44,6 +50,15 @@ export class PagesServiceService {
     const options = mixedPokemons.splice(0,4)
 
     return options;
+
+  }
+
+  getImg(pokemon:number){
+
+    return this.http.get(`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon}.png`)
+
+    
+
 
   }
 

@@ -54,7 +54,7 @@ export class PokemonComponent implements OnInit, OnDestroy {
 
       }else{
       this.nombre= pokemon.name
-      //console.log(pokemon);
+      console.log(pokemon);
 
       this.img= `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`
       //console.log(this.paramsSubscription);

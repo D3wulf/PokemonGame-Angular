@@ -36,7 +36,7 @@ export class OpcionesComponent implements OnInit {
     private http:HttpClient) { }
 
   ngOnInit(): void {
-    this.pagesService.getPokemons()   
+      
     this.logicaPokemons()
 
   }
@@ -148,7 +148,7 @@ continuar(){
   this.showPokemon = false
   this.pokeOpt  = []
   this.logicaPokemons()   
-  this.pagesService.getPokemons()
+  
   
 }
 
@@ -158,7 +158,7 @@ newGame() {
   this.pokeOpt  = []
   this.vidas= 3;
   this.aciertos=0;
-  this.pagesService.getPokemons()
+  
   this.logicaPokemons()         
 }
 
