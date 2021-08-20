@@ -1,11 +1,18 @@
 <div class="row">
     <div class="col">
 
-        <div class="text-center">
-            <h3>{{nombre | titlecase}}</h3>
-        </div>
-        <div class="text-center">
-            <img [src]="img" [alt]="nombre">
+        <div class="card text-dark" style="width: 18rem;">
+            <img [src]="img" class="card-img-top" alt="...">
+            <div class="card-body text-center">
+                <h5 class="card-title text-center">{{nombre | titlecase}}</h5>
+                <div *ngFor="let item of habilidades">
+
+                    <p class="card-text">{{item |titlecase}}</p>
+                </div>
+
+
+
+            </div>
         </div>
     </div>
 </div>

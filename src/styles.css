@@ -61,11 +61,11 @@ body {
 /* Pokemon Picture */
 
 .pokemon-container {
-    height: 220px;
+    height: 200px;
 }
 
 img {
-    height: 220px;
+    height: 200px;
     position: absolute;
     right: 46%;
     user-select: none;

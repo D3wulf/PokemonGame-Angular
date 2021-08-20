@@ -48,7 +48,7 @@ imgPokes (offset:number){
   //console.log(i)
   
   this.img[i]= `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${[i]}.png`
-  console.log(this.img[i]);
+  //console.log(this.img[i]);
 } 
 }
 
@@ -56,7 +56,7 @@ getPokemons(offset:number){
 
   return this.ps.getPokemons(offset).subscribe(({results,count})=>{
     
-    console.log(results);
+    //console.log(results);
     this.total= count
     this.pokemons= results
   })

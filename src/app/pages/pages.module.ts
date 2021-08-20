@@ -5,6 +5,7 @@ import { OpcionesComponent } from './opciones/opciones.component';
 import { AboutComponent } from './about/about.component';
 import { PokemonComponent } from './pokemon/pokemon.component';
 import { JuegoComponent } from './juego/juego.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -19,6 +20,7 @@ import { JuegoComponent } from './juego/juego.component';
   ],
   imports: [
     CommonModule,
+    SharedModule
     
     
     

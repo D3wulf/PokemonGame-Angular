@@ -19,7 +19,7 @@ const routes: Routes = [
     component:JuegoComponent
   },{
 
-    path:':pokemonId',
+    path:'pokemon/:pokemonId',
     component:PokemonComponent
   },
   
